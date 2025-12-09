@@ -87,3 +87,35 @@ const displayTrees = (trees) => {
     cardContainer.append(cardTree);
   }
 };
+// details loading
+const loadDetailsTrees = (id) => {
+  const uri = `https://openapi.programming-hero.com/api/plant/${id}`;
+  fetch(uri)
+    .then((res) => res.json())
+    .then((data) => displayTreesDetails(data.plants));
+};
+
+const displayTreesDetails = (tree) => {
+  //   console.log("hello how are you");
+  const detailsContainer = document.getElementById("details-container");
+  detailsContainer.innerHTML = "";
+
+  detailsContainer.innerHTML = `
+        <div class="">
+          <h2 class="text-3xl font-bold pb-2">${tree.name}</h2>
+        </div>
+        <figure class="px-1 pb-2">
+                <img
+                  src="${tree.image}"
+                  alt="${tree.name}"
+                  class="rounded-xl h-100 w-full object-cover"
+                />
+              </figure>
+        <p class="pt-2 pb-1 "><b>Category: </b>${tree.category}</p>
+        <p class="pb-1"><b>Price: </b>৳${tree.price}</p>
+        <p class="pb-4"><b>Description: </b>${tree.description}</p>
+      </div>
+  
+  `;
+  document.getElementById("my_modal_3").showModal();
+};
