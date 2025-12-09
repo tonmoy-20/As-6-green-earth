@@ -119,3 +119,44 @@ const displayTreesDetails = (tree) => {
   `;
   document.getElementById("my_modal_3").showModal();
 };
+// add to cart
+const addToCart = (event, btn) => {
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  const card = btn.parentNode.parentNode;
+  const addBtnPrice = Number(card.querySelector(".add-btn-price").innerText);
+  const addBtnName = card.querySelector(".add-btn-name").innerText;
+
+  const selectItem = {
+    addName: addBtnName,
+    addPrice: addBtnPrice,
+    addCnt: cnt,
+  };
+  cnt++;
+  cart.push(selectItem);
+  displayCart();
+};
+
+const displayCart = () => {
+  const cartContainer = document.getElementById("cart-container");
+  cartContainer.innerHTML = "";
+  for (let item of cart) {
+    const newItem = document.createElement("div");
+    newItem.innerHTML = `
+        <div
+                class="flex items-center justify-between px-3 py-2 bg-[#F0FDF4] rounded-lg mb-2"
+            >
+              <div class="w-[168px]">
+                <p class="text-[14px] font-semibold treeName">${item.addName}</p>
+                <p class="text-[16px] opacity-50">৳${item.addPrice} x 1</p>
+              </div>
+              <i onclick="deleteToCart(this,${item.addCnt})" class="fa-solid fa-xmark text-[#d52929]"></i>
+              </div>
+              
+        `;
+    total += item.addPrice;
+    document.getElementById("tk").innerText = total;
+    cartContainer.append(newItem);
+  }
+};
