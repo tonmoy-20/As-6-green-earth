@@ -160,3 +160,16 @@ const displayCart = () => {
     cartContainer.append(newItem);
   }
 };
+const deleteToCart = (btn, addCnt) => {
+  const item = btn.parentNode;
+  const addName = item.querySelector(".treeName").innerText;
+  // console.log(addCnt);
+  cart = cart.filter((i) => i.addCnt != addCnt);
+  displayCart();
+  total = 0;
+  cart.forEach((i) => (total += i.addPrice));
+  document.getElementById("tk").innerText = total;
+};
+
+loadCategory();
+randomTreeLoad();
